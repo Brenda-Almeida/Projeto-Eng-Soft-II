@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class users1621892086796 implements MigrationInterface {
+export default class content1621896187597 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'tb_users',
+                name: 'tb_content',
                 columns: [
                     {
                         name: 'id',
@@ -12,20 +12,20 @@ export default class users1621892086796 implements MigrationInterface {
                         isPrimary: true,
                     },
                     {
-                        name: 'email',
+                        name: 'title',
                         type: 'varchar',
                     },
                     {
-                        name: 'name',
+                        name: 'video_link',
                         type: 'varchar',
                     },
                     {
-                        name: 'type',
-                        type: 'int',
+                        name: 'archives',
+                        type: 'varchar',
                     },
                     {
-                        name: 'password',
-                        type: 'varchar',
+                        name: 'topics_id',
+                        type: 'uuid',
                     },
                     {
                         name: 'created_at',
@@ -38,11 +38,21 @@ export default class users1621892086796 implements MigrationInterface {
                         default: 'now()',
                     },
                 ],
+                foreignKeys: [
+                    {
+                        name: 'FKTopics',
+                        referencedTableName: 'tb_topics',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['topics_id'],
+                        onDelete: 'SET NULL',
+                        onUpdate: 'SET NULL',
+                    },
+                ],
             }),
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('tb_users');
+        await queryRunner.dropTable('tb_content');
     }
 }

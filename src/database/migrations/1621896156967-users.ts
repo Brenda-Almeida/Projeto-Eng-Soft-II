@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class topics1621892440586 implements MigrationInterface {
+export default class users1621896156967 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'tb_topics',
+                name: 'tb_users',
                 columns: [
                     {
                         name: 'id',
@@ -12,15 +12,19 @@ export default class topics1621892440586 implements MigrationInterface {
                         isPrimary: true,
                     },
                     {
-                        name: 'subject_id',
-                        type: 'uuid',
+                        name: 'email',
+                        type: 'varchar',
                     },
                     {
                         name: 'name',
                         type: 'varchar',
                     },
                     {
-                        name: 'description',
+                        name: 'type',
+                        type: 'int',
+                    },
+                    {
+                        name: 'password',
                         type: 'varchar',
                     },
                     {
@@ -34,21 +38,11 @@ export default class topics1621892440586 implements MigrationInterface {
                         default: 'now()',
                     },
                 ],
-                foreignKeys: [
-                    {
-                        name: 'FKSubjects',
-                        referencedTableName: 'tb_subjects',
-                        referencedColumnNames: ['id'],
-                        columnNames: ['subject_id'],
-                        onDelete: 'SET NULL',
-                        onUpdate: 'SET NULL',
-                    },
-                ],
             }),
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('tb_topics');
+        await queryRunner.dropTable('tb_users');
     }
 }
