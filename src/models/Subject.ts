@@ -10,7 +10,7 @@ import {
 
 import { v4 as uuid } from 'uuid';
 
-import User from "./User"
+import { User } from "./User"
 
 @Entity('tb_subjects')
 class Subject {
@@ -47,4 +47,4 @@ class Subject {
   }
 }
 
-export default Subject;
+export { Subject };
