@@ -1,0 +1,5 @@
+class SubjectsController {
+
+}
+
+export { SubjectsController }
