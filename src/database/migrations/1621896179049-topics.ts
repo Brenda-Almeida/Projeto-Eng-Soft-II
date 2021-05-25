@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+i@mport { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export default class topics1621896179049 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -20,6 +20,7 @@ export default class topics1621896179049 implements MigrationInterface {
                         type: 'varchar',
                     },
                     {
+    
                         name: 'description',
                         type: 'varchar',
                     },
