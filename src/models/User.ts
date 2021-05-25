@@ -1,3 +1,6 @@
+import { integer } from 'aws-sdk/clients/cloudfront';
+import { v4 as uuid } from "uuid";
+
 import {
     Entity,
     Column,
@@ -6,7 +9,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users')
+@Entity("users")
 class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -18,6 +21,9 @@ class User {
     email: string;
 
     @Column()
+    type: integer;
+
+    @Column()
     password: string;
 
     @CreateDateColumn()
@@ -25,6 +31,12 @@ class User {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    constructor(){
+        if(!this.id){
+            this.id = uuid();
+        }
+    }
 }
 
-export default User;
+export {User} 
