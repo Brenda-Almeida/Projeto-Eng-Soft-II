@@ -1,4 +1,3 @@
-import { integer } from 'aws-sdk/clients/cloudfront';
 import { v4 as uuid } from "uuid";
 
 import {
@@ -9,7 +8,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 
-@Entity("users")
+@Entity('tb_users')
 class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -20,8 +19,8 @@ class User {
     @Column()
     email: string;
 
-    @Column({ type: 'int', nullable: true })
-    type: integer;
+    @Column()
+    type: number;
 
     @Column()
     password: string;

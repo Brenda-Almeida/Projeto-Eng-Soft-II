@@ -1,47 +1,34 @@
-import { getCustomRepository } from "typeorm";
+import { getCustomRepository, Repository } from "typeorm";
+import { User } from "../models/User";
 import { UserRepository } from "../repositories/UserRepository";
 
+interface IUserCreate {
+    name: string;
+    email: string;
+    password: string;
+    type: number;
+}
 
 class UserService
 {
-    async create(name : string, email: string)
-    {
-        const usersRepository = getCustomRepository(UserRepository);
-        //Verificar se o usuario existe
+    private userRepository: Repository<User>;
 
-        const emailExists = await usersRepository.findOne(
-            {
-                email
-            }
-        )
+  constructor() {
+    this.userRepository = getCustomRepository(UserRepository);
+  }
+  async create({ email, name, type, password}: IUserCreate) {
+    const user = this.userRepository.create({
+     
+      email,
+      name,
+      type,
+      password,
+    });
 
-        const nameExists = await usersRepository.findOne(
-            {
-                name
-            }
-        )
+    await this.userRepository.save(user);
 
-        //Se existir, retornar esse user
-        if(emailExists)
-        {
-            return emailExists;
-        }
-
-        if(nameExists)
-        {
-            return nameExists;
-        }
-        //Se não existir, salvar no BD
-        const user = usersRepository.create({
-            email,
-        });
-
-        await usersRepository.save(user);
-
-        return user;
-
-
-    }
+    return user; 
+  }
 }
 
 export {UserService};
