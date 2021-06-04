@@ -17,6 +17,15 @@ class UserService
     this.userRepository = getCustomRepository(UserRepository);
   }
   async create({ email, name, type, password}: IUserCreate) {
+
+    const emailExists = await this.userRepository.findOne({
+      email,
+    });
+
+    if (emailExists){
+      return emailExists;
+    }
+
     const user = this.userRepository.create({
      
       email,
