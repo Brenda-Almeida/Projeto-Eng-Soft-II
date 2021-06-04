@@ -20,7 +20,7 @@ class User {
     @Column()
     email: string;
 
-    @Column()
+    @Column({ type: 'int', nullable: true })
     type: integer;
 
     @Column()

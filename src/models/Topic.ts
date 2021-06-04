@@ -14,7 +14,7 @@ import {
     v4 as uuid
 } from "uuid"
 
-@Entity('topic')
+@Entity('tb_topics')
 class Topic {
 
     @PrimaryColumn()
