@@ -1,4 +1,4 @@
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from 'uuid';
 
 import {
     Entity,
@@ -31,11 +31,11 @@ class User {
     @UpdateDateColumn()
     updated_at: Date;
 
-    constructor(){
-        if(!this.id){
+    constructor() {
+        if (!this.id) {
             this.id = uuid();
         }
     }
 }
 
-export {User} 
+export { User };

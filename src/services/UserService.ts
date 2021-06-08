@@ -1,6 +1,8 @@
-import { getCustomRepository, Repository } from "typeorm";
-import { User } from "../models/User";
-import { UserRepository } from "../repositories/UserRepository";
+import { getCustomRepository, Repository } from 'typeorm';
+import { hash } from 'bcryptjs';
+import { User } from '../models/User';
+import { UserRepository } from '../repositories/UserRepository';
+import AppError from '../errors/AppError';
 
 interface IUserCreate {
     name: string;
@@ -9,35 +11,34 @@ interface IUserCreate {
     type: number;
 }
 
-class UserService
-{
+class UserService {
     private userRepository: Repository<User>;
 
-  constructor() {
-    this.userRepository = getCustomRepository(UserRepository);
-  }
-  async create({ email, name, type, password}: IUserCreate) {
-
-    const emailExists = await this.userRepository.findOne({
-      email,
-    });
-
-    if (emailExists){
-      return emailExists;
+    constructor() {
+        this.userRepository = getCustomRepository(UserRepository);
     }
 
-    const user = this.userRepository.create({
-     
-      email,
-      name,
-      type,
-      password,
-    });
+    async create({ email, name, type, password }: IUserCreate) {
+        const emailExists = await this.userRepository.findOne({
+            email,
+        });
 
-    await this.userRepository.save(user);
+        if (emailExists) {
+            throw new AppError('Email address already used.');
+        }
+        const hashedPassword = await hash(password, 8);
 
-    return user; 
-  }
+        const user = this.userRepository.create({
+            email,
+            name,
+            type,
+            password: hashedPassword,
+        });
+
+        await this.userRepository.save(user);
+
+        return user;
+    }
 }
 
-export {UserService};
+export { UserService };
