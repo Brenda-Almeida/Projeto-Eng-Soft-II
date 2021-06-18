@@ -27,6 +27,12 @@ class SubjectsService {
 
     return subject; 
   }
+
+  async index() {
+    const subjects = await this.subjectRepository.find();
+
+    return subjects;
+  }
 }
 
 export { SubjectsService }

@@ -14,7 +14,9 @@ routes.use('/sessions', sessionsRouter);
 
 const subjectsController = new SubjectsController();
 
-routes.post('/subjects', subjectsController.create);
+routes.get('/subjects', subjectsController.index);
+
+routes.post('/createSubjects', subjectsController.create);
 
 // =============== topic routes =================
 const topicController = new TopicController();
