@@ -21,5 +21,6 @@ routes.post('/createSubjects', subjectsController.create);
 // =============== topic routes =================
 const topicController = new TopicController();
 routes.post('/topics', topicController.create);
+routes.get('/topics', topicController.getTopics);
 
 export default routes;

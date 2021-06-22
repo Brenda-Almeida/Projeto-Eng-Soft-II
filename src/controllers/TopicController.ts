@@ -15,6 +15,14 @@ class TopicController {
 
         return response.json(topic);
     }
+
+    async getTopics(request: Request, response: Response): Promise<Response> {
+        const topicService = new TopicService();
+
+        const topic = await topicService.getTopics();
+
+        return response.status(200).json(topic);
+    }
 }
 
 export { TopicController };

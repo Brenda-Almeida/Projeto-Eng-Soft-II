@@ -6,11 +6,13 @@ import {
   UpdateDateColumn,
   JoinColumn,
   ManyToOne,
+  OneToMany
 } from 'typeorm';
 
 import { v4 as uuid } from 'uuid';
 
 import { User } from "./User"
+import { Topic } from "./Topic";
 
 @Entity('tb_subjects')
 class Subject {
@@ -24,6 +26,9 @@ class Subject {
   @JoinColumn({ name: "id_teacher"})
   @ManyToOne(() => User)
   user: User;
+
+  @OneToMany(type => Topic, subject => Subject)
+  topics: Topic[];
 
   @Column()
   id_teacher: string;
