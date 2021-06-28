@@ -3,9 +3,9 @@ import {
     Column,
     PrimaryColumn,
     ManyToOne,
-    JoinColumn,
     UpdateDateColumn,
     CreateDateColumn,
+    JoinColumn
 } from 'typeorm';
 
 import { Subject } from "./Subject";
@@ -20,8 +20,8 @@ class Topic {
     @PrimaryColumn()
     id: string;
 
-    @JoinColumn({ name: "subject_id" })
-    @ManyToOne(() => Subject)    
+    @JoinColumn({ name: "subject_id"})
+    @ManyToOne(type => Subject, topics => Topic, { eager: true })    
     subject: Subject;
 
     @Column()
