@@ -15,6 +15,8 @@ routes.post('/user', userController.create);
 const registeredController = new RegisteredController();
 
 routes.post('/registered', registeredController.create);
+routes.get('/registered', registeredController.getRegistered);
+
 
 routes.use('/sessions', sessionsRouter);
 

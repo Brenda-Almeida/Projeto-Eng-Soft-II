@@ -1,4 +1,5 @@
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, Repository } from 'typeorm';
+import { Topic } from '../models/Topic';
 import { TopicRepository } from "../repositories/TopicRepository";
 
 interface ITopicCreate {
@@ -8,26 +9,29 @@ interface ITopicCreate {
 }
 
 class TopicService {
-    async create({ subject_id, name, description }: ITopicCreate) {
-        const topicRepository = getCustomRepository(TopicRepository);
+    private topicRepository: Repository<Topic>
 
-        const topic = topicRepository.create({
+    constructor() {
+        this.topicRepository = getCustomRepository(TopicRepository);
+    }
+    async create({ subject_id, name, description }: ITopicCreate) {
+
+        const topic = this.topicRepository.create({
             subject_id,
             name,
             description
         })
 
-        await topicRepository.save(topic);
+        await this.topicRepository.save(topic);
         return topic;
     }
 
     async getTopics() {
-        const topicRepository = getCustomRepository(TopicRepository);
 
-        const topic = topicRepository.find();
-
+        const topic = this.topicRepository.find()
+        
         return topic;
-    }
+    }  
 }
 
 

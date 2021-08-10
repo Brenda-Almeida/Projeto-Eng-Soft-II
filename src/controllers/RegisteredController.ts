@@ -15,6 +15,15 @@ class RegisteredController {
 
     return response.json(registered);
   }
+  async getRegistered(request: Request, response: Response): Promise<Response> {
+  
+    const registeredService = new RegisteredService();
+  
+    const registers = await registeredService.getRegisters();
+  
+    return response.status(200).json(registers);
+  }
+
 }
 
 export { RegisteredController }

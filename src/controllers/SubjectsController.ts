@@ -27,13 +27,6 @@ class SubjectsController {
     return response.json(subjects);
   }
 
-  async getSubjects(request: Request, response: Response): Promise<Response> {
-    const subjectService = new SubjectsService();
-
-    const subjects = await subjectService.getSubjects();
-
-    return response.status(200).json(subjects);
-}
 }
 
 export { SubjectsController }

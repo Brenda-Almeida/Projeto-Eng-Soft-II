@@ -25,6 +25,13 @@ class RegisteredService {
 
     return registered; 
   }
+
+  async getRegisters() {
+    const registers = this.registeredRepository.find()
+        
+    return registers;
+  }
+
 }
 
 export { RegisteredService }
